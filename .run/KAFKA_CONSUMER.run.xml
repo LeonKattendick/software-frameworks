@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="KAFKA_CONSUMER" type="Application" factoryName="Application">
+  <configuration default="false" name="KAFKA_CONSUMER" type="Application" factoryName="Application" singleton="false">
     <option name="MAIN_CLASS_NAME" value="at.technikum.kafka.KafkaConsumer" />
     <module name="kafka-module" />
     <extension name="coverage">

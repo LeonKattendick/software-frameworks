@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
+import org.apache.kafka.common.TopicPartition;
 import org.apache.kafka.common.serialization.StringDeserializer;
 
 import java.time.Duration;
@@ -26,7 +27,7 @@ public class KafkaConsumer {
 
         try (org.apache.kafka.clients.consumer.KafkaConsumer<String, KafkaTest> consumer = new org.apache.kafka.clients.consumer.KafkaConsumer<>(properties)) {
 
-            consumer.subscribe(Collections.singletonList("demo_java"));
+            consumer.assign(Collections.singletonList(new TopicPartition("demo_java", 0)));
 
             while (true) {
                 ConsumerRecords<String, KafkaTest> records = consumer.poll(Duration.ofMillis(100));

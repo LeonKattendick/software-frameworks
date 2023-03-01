@@ -22,7 +22,7 @@ public class Crawler {
 
         try (KafkaProducer<String, KafkaTest> producer = new KafkaProducer<>(properties)) {
 
-            ProducerRecord<String, KafkaTest> producerRecord = new ProducerRecord<>("demo_java", new KafkaTest("Test String"));
+            ProducerRecord<String, KafkaTest> producerRecord = new ProducerRecord<>("demo_java", 1, "1", new KafkaTest("Test String"));
 
             producer.send(producerRecord);
             producer.flush();

@@ -1,5 +1,6 @@
 package at.technikum.crawler;
 
+import at.technikum.commons.KafkaTest;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerConfig;
@@ -17,11 +18,11 @@ public class Crawler {
         Properties properties = new Properties();
         properties.setProperty(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "127.0.0.1:9092");
         properties.setProperty(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
-        properties.setProperty(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
+        properties.setProperty(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, CustomSerializer.class.getName());
 
-        try (KafkaProducer<String, String> producer = new KafkaProducer<>(properties)) {
+        try (KafkaProducer<String, KafkaTest> producer = new KafkaProducer<>(properties)) {
 
-            ProducerRecord<String, String> producerRecord = new ProducerRecord<>("demo_java", "hello world");
+            ProducerRecord<String, KafkaTest> producerRecord = new ProducerRecord<>("demo_java", new KafkaTest("Test String"));
 
             producer.send(producerRecord);
             producer.flush();

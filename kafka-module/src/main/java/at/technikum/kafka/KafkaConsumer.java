@@ -5,7 +5,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
-import org.apache.kafka.common.TopicPartition;
 import org.apache.kafka.common.serialization.StringDeserializer;
 
 import java.time.Duration;
@@ -16,7 +15,7 @@ import java.util.Properties;
 public class KafkaConsumer {
 
     public static void main(String[] args) {
-        log.info("Starting Kafka Consumer...");
+        log.info("Starting Kafka Test Consumer...");
 
         Properties properties = new Properties();
         properties.setProperty(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "127.0.0.1:9092");
@@ -27,14 +26,14 @@ public class KafkaConsumer {
 
         try (org.apache.kafka.clients.consumer.KafkaConsumer<String, KafkaTest> consumer = new org.apache.kafka.clients.consumer.KafkaConsumer<>(properties)) {
 
-            consumer.assign(Collections.singletonList(new TopicPartition("demo_java", 0)));
+            consumer.subscribe(Collections.singletonList("demo_java"));
 
             while (true) {
                 ConsumerRecords<String, KafkaTest> records = consumer.poll(Duration.ofMillis(100));
 
                 for (ConsumerRecord<String, KafkaTest> record : records) {
                     log.info("Key: " + record.key() + ", Value: " + record.value());
-                    log.info("Partition: " + record.partition() + ", Offset:" + record.offset());
+                    log.info("Partition: " + record.partition() + ", Offset: " + record.offset());
                 }
             }
         } catch (Exception e) {

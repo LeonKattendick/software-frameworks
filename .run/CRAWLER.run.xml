@@ -1,7 +1,7 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="CRAWLER" type="Application" factoryName="Application">
-    <option name="MAIN_CLASS_NAME" value="at.technikum.crawler.Crawler" />
+  <configuration default="false" name="CRAWLER" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
     <module name="crawler-module" />
+    <option name="SPRING_BOOT_MAIN_CLASS" value="at.technikum.crawler.CrawlerApplication" />
     <extension name="coverage">
       <pattern>
         <option name="PATTERN" value="at.technikum.crawler.*" />

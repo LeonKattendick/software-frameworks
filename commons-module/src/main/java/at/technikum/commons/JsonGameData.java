@@ -13,6 +13,6 @@ public class JsonGameData {
 
     private GameType gameType;
 
-    private String data;
+    private String content;
 
 }

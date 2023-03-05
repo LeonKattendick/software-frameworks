@@ -23,7 +23,7 @@ public class TestController {
         kafkaProducerService.sendMessage(
                 JsonGameData.builder()
                         .gameType(GameType.LEAGUE_OF_LEGENDS)
-                        .data("test")
+                        .content("test")
                         .build()
         );
         return ResponseEntity.ok("Done");

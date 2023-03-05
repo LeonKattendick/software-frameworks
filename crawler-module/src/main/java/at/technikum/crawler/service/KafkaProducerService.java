@@ -15,7 +15,7 @@ public class KafkaProducerService {
     private KafkaTemplate<String, JsonGameData> kafkaTemplate;
 
     public void sendMessage(JsonGameData data) {
+        log.info("Sending Kafka data for game {} with content {}", data.getGameType(), data.getContent());
         kafkaTemplate.send(Constants.TOPIC_NAME, data);
-        log.info("Sending Kafka data: " + data);
     }
 }

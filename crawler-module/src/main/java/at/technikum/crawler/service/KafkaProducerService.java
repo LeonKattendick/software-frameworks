@@ -1,6 +1,7 @@
 package at.technikum.crawler.service;
 
-import at.technikum.commons.AppConstants;
+import at.technikum.commons.Constants;
+import at.technikum.commons.JsonGameData;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.core.KafkaTemplate;
@@ -11,9 +12,10 @@ import org.springframework.stereotype.Service;
 @Service
 public class KafkaProducerService {
 
-    private KafkaTemplate<String, String> kafkaTemplate;
+    private KafkaTemplate<String, JsonGameData> kafkaTemplate;
 
-    public void sendMessage(String message) {
-        kafkaTemplate.send(AppConstants.TOPIC_NAME, message);
+    public void sendMessage(JsonGameData data) {
+        kafkaTemplate.send(Constants.TOPIC_NAME, data);
+        log.info("Sending Kafka data: " + data);
     }
 }

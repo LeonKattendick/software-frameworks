@@ -1,7 +1,7 @@
 package at.technikum.kafka;
 
-import at.technikum.commons.AppConstants;
-import at.technikum.commons.KafkaTest;
+import at.technikum.commons.Constants;
+import at.technikum.commons.JsonGameData;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
@@ -22,18 +22,18 @@ public class KafkaTestConsumer {
         Properties properties = new Properties();
         properties.setProperty(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "127.0.0.1:9092");
         properties.setProperty(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
-        properties.setProperty(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
-        properties.setProperty(ConsumerConfig.GROUP_ID_CONFIG, AppConstants.GROUP_ID);
+        properties.setProperty(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, JsonGameDataDeserializer.class.getName());
+        properties.setProperty(ConsumerConfig.GROUP_ID_CONFIG, Constants.GROUP_ID);
         properties.setProperty(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
 
-        try (KafkaConsumer<String, KafkaTest> consumer = new KafkaConsumer<>(properties)) {
+        try (KafkaConsumer<String, JsonGameData> consumer = new KafkaConsumer<>(properties)) {
 
-            consumer.subscribe(Collections.singletonList(AppConstants.TOPIC_NAME));
+            consumer.subscribe(Collections.singletonList(Constants.TOPIC_NAME));
 
             while (true) {
-                ConsumerRecords<String, KafkaTest> records = consumer.poll(Duration.ofMillis(100));
+                ConsumerRecords<String, JsonGameData> records = consumer.poll(Duration.ofMillis(100));
 
-                for (ConsumerRecord<String, KafkaTest> record : records) {
+                for (ConsumerRecord<String, JsonGameData> record : records) {
                     log.info("Key: " + record.key() + ", Value: " + record.value());
                     log.info("Partition: " + record.partition() + ", Offset: " + record.offset());
                 }

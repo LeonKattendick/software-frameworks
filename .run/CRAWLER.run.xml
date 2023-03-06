@@ -1,5 +1,6 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="CRAWLER" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+    <option name="ACTIVE_PROFILES" value="local" />
     <module name="crawler-module" />
     <option name="SPRING_BOOT_MAIN_CLASS" value="at.technikum.crawler.CrawlerApplication" />
     <extension name="coverage">

@@ -1,5 +1,6 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="BACKEND" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+    <option name="ACTIVE_PROFILES" value="local" />
     <module name="backend-module" />
     <option name="SPRING_BOOT_MAIN_CLASS" value="at.technikum.backend.BackendApplication" />
     <method v="2">

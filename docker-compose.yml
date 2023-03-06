@@ -3,11 +3,17 @@ services:
   zookeeper:
     image: confluentinc/cp-zookeeper:latest
     container_name: zookeeper
+    profiles:
+      - local
+      - production
     environment:
       ZOOKEEPER_CLIENT_PORT: 2181
   kafka:
     image: confluentinc/cp-kafka:latest
     container_name: kafka
+    profiles:
+      - local
+      - production
     ports:
       - "9092:9092"
     expose:
@@ -23,6 +29,8 @@ services:
   backend:
     image: backend-module:latest
     container_name: backend
+    profiles:
+      - production
     build:
       context: ./
       dockerfile: backend.dockerfile
@@ -32,6 +40,8 @@ services:
   crawler:
     image: crawler-module:latest
     container_name: crawler
+    profiles:
+      - production
     build:
       context: ./
       dockerfile: crawler.dockerfile

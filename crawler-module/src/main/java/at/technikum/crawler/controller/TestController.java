@@ -1,7 +1,7 @@
 package at.technikum.crawler.controller;
 
-import at.technikum.commons.GameType;
-import at.technikum.commons.JsonGameData;
+import at.technikum.commons.schema.GameType;
+import at.technikum.commons.schema.JsonGameData;
 import at.technikum.crawler.service.KafkaProducerService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -20,12 +20,13 @@ public class TestController {
 
     @GetMapping
     public ResponseEntity<String> test() {
-        kafkaProducerService.sendMessage(
-                JsonGameData.builder()
-                        .gameType(GameType.LEAGUE_OF_LEGENDS)
-                        .content("test")
-                        .build()
-        );
+        JsonGameData jsonGameData = JsonGameData.newBuilder()
+                .setGameType(GameType.LEAGUE_OF_LEGENDS)
+                .setContent("test")
+                .build();
+
+        kafkaProducerService.sendMessage(jsonGameData);
+
         return ResponseEntity.ok("Done");
     }
 }

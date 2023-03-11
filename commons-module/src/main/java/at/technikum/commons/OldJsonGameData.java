@@ -9,9 +9,9 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class JsonGameData {
+public class OldJsonGameData {
 
-    private GameType gameType;
+    private OldGameType gameType;
 
     private String content;
 

@@ -1,7 +1,7 @@
 package at.technikum.kafka;
 
 import at.technikum.commons.Constants;
-import at.technikum.commons.JsonGameData;
+import at.technikum.commons.OldJsonGameData;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
@@ -26,14 +26,14 @@ public class KafkaTestConsumer {
         properties.setProperty(ConsumerConfig.GROUP_ID_CONFIG, Constants.GROUP_ID);
         properties.setProperty(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
 
-        try (KafkaConsumer<String, JsonGameData> consumer = new KafkaConsumer<>(properties)) {
+        try (KafkaConsumer<String, OldJsonGameData> consumer = new KafkaConsumer<>(properties)) {
 
             consumer.subscribe(Collections.singletonList(Constants.TOPIC_NAME));
 
             while (true) {
-                ConsumerRecords<String, JsonGameData> records = consumer.poll(Duration.ofMillis(100));
+                ConsumerRecords<String, OldJsonGameData> records = consumer.poll(Duration.ofMillis(100));
 
-                for (ConsumerRecord<String, JsonGameData> record : records) {
+                for (ConsumerRecord<String, OldJsonGameData> record : records) {
                     log.info("Key: " + record.key() + ", Value: " + record.value());
                     log.info("Partition: " + record.partition() + ", Offset: " + record.offset());
                 }

@@ -4,12 +4,17 @@
       <settings>
         <option name="composeProjectName" value="complete-docker" />
         <option name="envFilePath" value="" />
-        <option name="profiles">
+        <option name="commandLineOptions" value="--build" />
+        <option name="services">
           <list>
-            <option value="production" />
+            <option value="zookeeper" />
+            <option value="kafka" />
+            <option value="backend" />
+            <option value="crawler" />
+            <option value="schema-registry" />
+            <option value="connect" />
           </list>
         </option>
-        <option name="commandLineOptions" value="--build" />
         <option name="sourceFilePath" value="docker-compose.yml" />
       </settings>
     </deployment>

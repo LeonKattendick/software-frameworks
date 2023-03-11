@@ -4,9 +4,10 @@
       <settings>
         <option name="composeProjectName" value="local-docker" />
         <option name="envFilePath" value="" />
-        <option name="profiles">
+        <option name="services">
           <list>
-            <option value="local" />
+            <option value="zookeeper" />
+            <option value="kafka" />
           </list>
         </option>
         <option name="sourceFilePath" value="docker-compose.yml" />

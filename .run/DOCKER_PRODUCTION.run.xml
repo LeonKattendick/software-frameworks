@@ -2,7 +2,7 @@
   <configuration default="false" name="DOCKER_PRODUCTION" type="docker-deploy" factoryName="docker-compose.yml" server-name="Docker">
     <deployment type="docker-compose.yml">
       <settings>
-        <option name="composeProjectName" value="complete-docker" />
+        <option name="composeProjectName" value="production-docker" />
         <option name="envFilePath" value="" />
         <option name="commandLineOptions" value="--build" />
         <option name="services">

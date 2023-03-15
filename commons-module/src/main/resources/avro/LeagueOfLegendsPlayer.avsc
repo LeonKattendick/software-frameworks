@@ -1,0 +1,69 @@
+{
+  "type": "record",
+  "name": "LeagueOfLegendsPlayer",
+  "namespace": "at.technikum.commons.schema.league",
+  "fields": [
+    {
+      "name": "playerUuid",
+      "type": "string"
+    },
+    {
+      "name": "gameName",
+      "type": "string"
+    },
+    {
+      "name": "matches",
+      "type": {
+        "type": "array",
+        "items": {
+          "type": "record",
+          "name": "LeagueOfLegendsMatch",
+          "namespace": "at.technikum.commons.schema.league",
+          "fields": [
+            {
+              "name": "matchId",
+              "type": "string"
+            },
+            {
+              "name": "participants",
+              "type": {
+                "type": "array",
+                "items": {
+                  "type": "record",
+                  "name": "LeagueOfLegendsMatchParticipant",
+                  "namespace": "at.technikum.commons.schema.league",
+                  "fields": [
+                    {
+                      "name": "playerUuid",
+                      "type": "string"
+                    },
+                    {
+                      "name": "kills",
+                      "type": "int"
+                    },
+                    {
+                      "name": "deaths",
+                      "type": "int"
+                    },
+                    {
+                      "name": "assists",
+                      "type": "int"
+                    },
+                    {
+                      "name": "championName",
+                      "type": "string"
+                    },
+                    {
+                      "name": "win",
+                      "type": "boolean"
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

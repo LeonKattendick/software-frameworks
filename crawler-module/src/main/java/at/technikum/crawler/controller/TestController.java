@@ -1,7 +1,10 @@
 package at.technikum.crawler.controller;
 
-import at.technikum.commons.schema.GameType;
-import at.technikum.commons.schema.JsonGameData;
+import at.technikum.commons.schema.dota.Dota2Match;
+import at.technikum.commons.schema.dota.Dota2Player;
+import at.technikum.commons.schema.league.LeagueOfLegendsMatch;
+import at.technikum.commons.schema.league.LeagueOfLegendsMatchParticipant;
+import at.technikum.commons.schema.league.LeagueOfLegendsPlayer;
 import at.technikum.crawler.service.KafkaProducerService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -9,6 +12,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Collections;
 
 @Slf4j
 @AllArgsConstructor
@@ -18,15 +23,54 @@ public class TestController {
 
     private KafkaProducerService kafkaProducerService;
 
-    @GetMapping
-    public ResponseEntity<String> test() {
-        JsonGameData jsonGameData = JsonGameData.newBuilder()
-                .setGameType(GameType.LEAGUE_OF_LEGENDS)
-                .setContent("test")
+    @GetMapping("/dota")
+    public ResponseEntity<String> sendDotaTest() {
+
+        Dota2Match match = Dota2Match.newBuilder()
+                .setMatchId(456)
+                .setKills(100)
+                .setDeaths(200)
+                .setAssists(50)
+                .setHeroName("GYROCOPTER")
+                .setRadiantWin(true)
                 .build();
 
-        kafkaProducerService.sendMessage(jsonGameData);
+        Dota2Player player = Dota2Player.newBuilder()
+                .setAccountId(123)
+                .setName("Test")
+                .setMatches(Collections.singletonList(match))
+                .build();
 
-        return ResponseEntity.ok("Done");
+        kafkaProducerService.sendDota2Message(player);
+
+        return ResponseEntity.ok("Send Dota data");
+    }
+
+    @GetMapping("/league")
+    public ResponseEntity<String> sendLeagueTest() {
+
+        LeagueOfLegendsMatchParticipant participant = LeagueOfLegendsMatchParticipant.newBuilder()
+                .setPlayerUuid("123")
+                .setKills(100)
+                .setDeaths(200)
+                .setAssists(50)
+                .setChampionName("Zilean")
+                .setWin(true)
+                .build();
+
+        LeagueOfLegendsMatch match = LeagueOfLegendsMatch.newBuilder()
+                .setMatchId("456")
+                .setParticipants(Collections.singletonList(participant))
+                .build();
+
+        LeagueOfLegendsPlayer player = LeagueOfLegendsPlayer.newBuilder()
+                .setPlayerUuid("123")
+                .setGameName("Test")
+                .setMatches(Collections.singletonList(match))
+                .build();
+
+        kafkaProducerService.sendLeagueOfLegendsMessage(player);
+
+        return ResponseEntity.ok("Send League data");
     }
 }

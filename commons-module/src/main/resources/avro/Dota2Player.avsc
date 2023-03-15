@@ -1,0 +1,52 @@
+{
+  "type": "record",
+  "name": "Dota2Player",
+  "namespace": "at.technikum.commons.schema.dota",
+  "fields": [
+    {
+      "name": "accountId",
+      "type": "int"
+    },
+    {
+      "name": "name",
+      "type": "string"
+    },
+    {
+      "name": "matches",
+      "type": {
+        "type": "array",
+        "items": {
+          "type": "record",
+          "name": "Dota2Match",
+          "namespace": "at.technikum.commons.schema.dota",
+          "fields": [
+            {
+              "name": "matchId",
+              "type": "long"
+            },
+            {
+              "name": "kills",
+              "type": "int"
+            },
+            {
+              "name": "deaths",
+              "type": "int"
+            },
+            {
+              "name": "assists",
+              "type": "int"
+            },
+            {
+              "name": "heroName",
+              "type": "string"
+            },
+            {
+              "name": "radiantWin",
+              "type": "boolean"
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

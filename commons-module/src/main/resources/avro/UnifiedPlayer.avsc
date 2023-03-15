@@ -1,0 +1,69 @@
+{
+  "type": "record",
+  "name": "UnifiedPlayer",
+  "namespace": "at.technikum.commons.schema.unified",
+  "fields": [
+    {
+      "name": "gameType",
+      "type": {
+        "type": "enum",
+        "name": "GameType",
+        "symbols": [
+          "LEAGUE_OF_LEGENDS",
+          "DOTA2"
+        ]
+      }
+    },
+    {
+      "name": "id",
+      "type": [
+        "int",
+        "string"
+      ]
+    },
+    {
+      "name": "name",
+      "type": "string"
+    },
+    {
+      "name": "matches",
+      "type": {
+        "type": "array",
+        "items": {
+          "type": "record",
+          "name": "UnifiedMatch",
+          "namespace": "at.technikum.commons.schema.unified",
+          "fields": [
+            {
+              "name": "matchId",
+              "type": [
+                "long",
+                "string"
+              ]
+            },
+            {
+              "name": "kills",
+              "type": "int"
+            },
+            {
+              "name": "deaths",
+              "type": "int"
+            },
+            {
+              "name": "assists",
+              "type": "int"
+            },
+            {
+              "name": "championName",
+              "type": "string"
+            },
+            {
+              "name": "win",
+              "type": "boolean"
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

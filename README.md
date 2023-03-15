@@ -1,11 +1,12 @@
 # Project Software Frameworks: KDA Profile Tracker for GAME APIs
 https://github.com/LeonKattendick/software-frameworks
 
-### Startup
+### Setup / Test
 
 1. Start docker
 2. docker compose with profile: production
 `docker compose --profile production up`
+
 
 ## Project:
 Tracker auf Game APIs von Valve (Dota2) und Riot (League of Legends)
@@ -26,6 +27,8 @@ Partitions: auto
 - Commons Module
   - Constants: Topic Names ("tracker" atm)
   - JsonGameData: DTO
+
+
 
 ### Crawler
 - KafkaProducerService

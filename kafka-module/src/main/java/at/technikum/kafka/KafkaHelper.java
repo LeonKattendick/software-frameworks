@@ -19,9 +19,9 @@ public class KafkaHelper {
 
         Properties properties = new Properties();
         properties.put(StreamsConfig.APPLICATION_ID_CONFIG, "tracker-streams");
-        properties.put(StreamsConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
+        properties.put(StreamsConfig.BOOTSTRAP_SERVERS_CONFIG, "kafka:29092");
 
-        properties.put("schema.registry.url", "http://localhost:8081");
+        properties.put("schema.registry.url", "http://schema-registry:8081");
 
         properties.put(StreamsConfig.DEFAULT_KEY_SERDE_CLASS_CONFIG, Serdes.String().getClass().getName());
         properties.put(StreamsConfig.DEFAULT_VALUE_SERDE_CLASS_CONFIG, SpecificAvroSerde.class);
@@ -30,7 +30,7 @@ public class KafkaHelper {
     }
 
     public static Map<String, String> valueProperties() {
-        return Collections.singletonMap("schema.registry.url", "http://localhost:8081");
+        return Collections.singletonMap("schema.registry.url", "http://schema-registry:8081");
     }
 
     public static Serde<Dota2Player> dotaValueSerde() {

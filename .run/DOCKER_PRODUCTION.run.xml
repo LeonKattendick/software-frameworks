@@ -13,6 +13,7 @@
             <option value="crawler" />
             <option value="schema-registry" />
             <option value="connect" />
+            <option value="streams" />
           </list>
         </option>
         <option name="sourceFilePath" value="docker-compose.yml" />

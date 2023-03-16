@@ -1,6 +1,6 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="TEST_CONSUMER" type="Application" factoryName="Application" singleton="true">
-    <option name="MAIN_CLASS_NAME" value="at.technikum.kafka.KafkaTestConsumer" />
+  <configuration default="false" name="STREAM_PROCESSOR" type="Application" factoryName="Application">
+    <option name="MAIN_CLASS_NAME" value="at.technikum.kafka.KafkaStreamProcessor" />
     <module name="kafka-module" />
     <extension name="coverage">
       <pattern>

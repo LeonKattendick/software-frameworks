@@ -35,6 +35,32 @@ services:
       KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
       KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
 
+  init-kafka:
+    image: confluentinc/cp-kafka:7.3.1
+    hostname: init-kafka
+    container_name: init-kafka
+    profiles:
+      - local
+      - production
+    depends_on:
+      - kafka
+    entrypoint: [ '/bin/sh', '-c' ]
+    command: |
+      "
+      #
+      kafka-topics --bootstrap-server kafka:29092 --list
+      
+      echo -e 'Creating Kafka Topics'
+      kafka-topics --bootstrap-server kafka:29092 --create --if-not-exists --topic tracker_dota2 --replication-factor 1 --partitions 1
+      kafka-topics --bootstrap-server kafka:29092 --create --if-not-exists --topic tracker_league_of_legends --replication-factor 1 --partitions 1
+      kafka-topics --bootstrap-server kafka:29092 --create --if-not-exists --topic tracker_unified --replication-factor 1 --partitions 1
+      kafka-topics --bootstrap-server kafka:29092 --create --if-not-exists --topic tracker_kda_raw --replication-factor 1 --partitions 1
+      kafka-topics --bootstrap-server kafka:29092 --create --if-not-exists --topic tracker_kda --replication-factor 1 --partitions 1
+      
+      echo -e 'Topics created:'
+      kafka-topics --bootstrap-server kafka:29092 --list
+      "
+
   schema-registry:
     image: confluentinc/cp-schema-registry:7.3.1
     hostname: schema-registry
@@ -79,22 +105,6 @@ services:
       CONNECT_VALUE_CONVERTER_SCHEMA_REGISTRY_URL: http://schema-registry:8081
       CONNECT_PLUGIN_PATH: "/usr/share/java,/usr/share/confluent-hub-components"
       CONNECT_LOG4J_LOGGERS: org.apache.zookeeper=ERROR,org.I0Itec.zkclient=ERROR,org.reflections=ERROR
-    entrypoint: [ '/bin/sh', '-c' ]
-    command: |
-        "
-        #
-        kafka-topics --bootstrap-server kafka:29092 --list
-        
-        echo -e 'Creating Kafka Topics'
-        kafka-topics --bootstrap-server kafka:29092 --create --if-not-exists --topic tracker_dota2 --replication-factor 1 --partitions 1
-        kafka-topics --bootstrap-server kafka:29092 --create --if-not-exists --topic tracker_league_of_legends --replication-factor 1 --partitions 1
-        kafka-topics --bootstrap-server kafka:29092 --create --if-not-exists --topic tracker_unified --replication-factor 1 --partitions 1
-        kafka-topics --bootstrap-server kafka:29092 --create --if-not-exists --topic tracker_kda_raw --replication-factor 1 --partitions 1
-        kafka-topics --bootstrap-server kafka:29092 --create --if-not-exists --topic tracker_kda --replication-factor 1 --partitions 1
-        
-        echo -e 'Topics created:'
-        kafka-topics --bootstrap-server kafka:29092 --list
-        "
 
   backend:
     image: backend-module:latest

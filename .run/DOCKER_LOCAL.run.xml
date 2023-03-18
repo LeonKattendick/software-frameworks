@@ -10,6 +10,7 @@
             <option value="kafka" />
             <option value="schema-registry" />
             <option value="connect" />
+            <option value="init-kafka" />
           </list>
         </option>
         <option name="sourceFilePath" value="docker-compose.yml" />

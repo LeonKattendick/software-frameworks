@@ -16,10 +16,7 @@
     },
     {
       "name": "id",
-      "type": [
-        "int",
-        "string"
-      ]
+      "type": "string"
     },
     {
       "name": "name",
@@ -36,10 +33,7 @@
           "fields": [
             {
               "name": "matchId",
-              "type": [
-                "long",
-                "string"
-              ]
+              "type": "string"
             },
             {
               "name": "kills",

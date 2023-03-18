@@ -21,12 +21,12 @@ import java.util.stream.Collectors;
 
 @Slf4j
 @UtilityClass
-public class LeagueStreamProcessor {
+public class LeagueStream {
 
     public void addStream(StreamsBuilder builder) {
         builder.stream(Constants.TOPIC_NAME_LEAGUE_OF_LEGENDS, Consumed.with(Serdes.String(), KafkaHelper.leagueValueSerde()))
                 .peek((k, v) -> log.info("[UNMAPPED] Key: {}, Value: {}", k, v))
-                .mapValues(LeagueStreamProcessor::leagueOfLegendsPlayerToUnifiedPlayer)
+                .mapValues(LeagueStream::leagueOfLegendsPlayerToUnifiedPlayer)
                 .peek((k, v) -> log.info("[MAPPED] Key: {}, Value: {}", k, v))
                 .to(Constants.TOPIC_NAME_UNIFIED, Produced.with(Serdes.String(), KafkaHelper.unifiedValueSerde()));
     }

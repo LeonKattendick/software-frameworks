@@ -1,0 +1,23 @@
+{
+  "type": "record",
+  "name": "KDA",
+  "namespace": "at.technikum.commons.schema.unified",
+  "fields": [
+    {
+      "name": "playerId",
+      "type": "string"
+    },
+    {
+      "name": "kills",
+      "type": "int"
+    },
+    {
+      "name": "deaths",
+      "type": "int"
+    },
+    {
+      "name": "assists",
+      "type": "int"
+    }
+  ]
+}

@@ -2,6 +2,7 @@
   <configuration default="false" name="STREAM_PROCESSOR" type="Application" factoryName="Application">
     <option name="MAIN_CLASS_NAME" value="at.technikum.kafka.KafkaStreamProcessor" />
     <module name="kafka-module" />
+    <option name="PROGRAM_PARAMETERS" value="local" />
     <extension name="coverage">
       <pattern>
         <option name="PATTERN" value="at.technikum.kafka.*" />

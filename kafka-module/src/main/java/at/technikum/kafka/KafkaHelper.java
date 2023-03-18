@@ -2,6 +2,7 @@ package at.technikum.kafka;
 
 import at.technikum.commons.schema.dota.Dota2Player;
 import at.technikum.commons.schema.league.LeagueOfLegendsPlayer;
+import at.technikum.commons.schema.unified.KDA;
 import at.technikum.commons.schema.unified.UnifiedPlayer;
 import io.confluent.kafka.streams.serdes.avro.SpecificAvroSerde;
 import org.apache.kafka.common.serialization.Serde;
@@ -15,13 +16,25 @@ import java.util.Properties;
 
 public class KafkaHelper {
 
+    private static String kafkaUrl, schemaRegistryUrl;
+
+    public static void init(boolean isDocker) {
+        if (isDocker) {
+            kafkaUrl = "kafka:29092";
+            schemaRegistryUrl = "http://schema-registry:8081";
+        } else {
+            kafkaUrl = "localhost:9092";
+            schemaRegistryUrl = "http://localhost:8081";
+        }
+    }
+
     public static Properties propertiesConfig() {
 
         Properties properties = new Properties();
         properties.put(StreamsConfig.APPLICATION_ID_CONFIG, "tracker-streams");
-        properties.put(StreamsConfig.BOOTSTRAP_SERVERS_CONFIG, "kafka:29092");
+        properties.put(StreamsConfig.BOOTSTRAP_SERVERS_CONFIG, kafkaUrl);
 
-        properties.put("schema.registry.url", "http://schema-registry:8081");
+        properties.put("schema.registry.url", schemaRegistryUrl);
 
         properties.put(StreamsConfig.DEFAULT_KEY_SERDE_CLASS_CONFIG, Serdes.String().getClass().getName());
         properties.put(StreamsConfig.DEFAULT_VALUE_SERDE_CLASS_CONFIG, SpecificAvroSerde.class);
@@ -30,7 +43,7 @@ public class KafkaHelper {
     }
 
     public static Map<String, String> valueProperties() {
-        return Collections.singletonMap("schema.registry.url", "http://schema-registry:8081");
+        return Collections.singletonMap("schema.registry.url", schemaRegistryUrl);
     }
 
     public static Serde<Dota2Player> dotaValueSerde() {
@@ -42,6 +55,13 @@ public class KafkaHelper {
 
     public static Serde<LeagueOfLegendsPlayer> leagueValueSerde() {
         Serde<LeagueOfLegendsPlayer> serde = new SpecificAvroSerde<>();
+        serde.configure(KafkaHelper.valueProperties(), false);
+
+        return serde;
+    }
+
+    public static Serde<KDA> kdaValueSerde() {
+        Serde<KDA> serde = new SpecificAvroSerde<>();
         serde.configure(KafkaHelper.valueProperties(), false);
 
         return serde;

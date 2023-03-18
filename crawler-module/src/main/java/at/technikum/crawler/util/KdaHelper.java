@@ -2,54 +2,66 @@ package at.technikum.crawler.util;
 
 import at.technikum.commons.schema.dota.Dota2Match;
 import at.technikum.commons.schema.dota.Dota2Player;
-import at.technikum.commons.schema.league.LeagueOfLegendsMatchParticipant;
+import at.technikum.commons.schema.kda.MatchKDA;
+import at.technikum.commons.schema.kda.PlayerKDA;
+import at.technikum.commons.schema.league.LeagueOfLegendsMatch;
 import at.technikum.commons.schema.league.LeagueOfLegendsPlayer;
-import at.technikum.commons.schema.unified.KDA;
 import lombok.experimental.UtilityClass;
 import lombok.val;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @UtilityClass
 public class KdaHelper {
 
-    public KDA getKdaFromDota2Message(Dota2Player data) {
+    public PlayerKDA getKdaFromDota2Message(Dota2Player data) {
 
-        int kills = 0, deaths = 0, assists = 0;
+        List<MatchKDA> matchKdaList = new ArrayList<>();
 
         for (Dota2Match match : data.getMatches()) {
-            kills += match.getKills();
-            deaths += match.getDeaths();
-            assists += match.getAssists();
+            matchKdaList.add(MatchKDA.newBuilder()
+                    .setMatchId(match.getMatchId().toString())
+                    .setKills(match.getKills())
+                    .setDeaths(match.getDeaths())
+                    .setAssists(match.getAssists())
+                    .build());
         }
 
-        return KDA.newBuilder()
+        return PlayerKDA.newBuilder()
                 .setPlayerId(data.getAccountId().toString())
-                .setKills(kills)
-                .setDeaths(deaths)
-                .setAssists(assists)
+                .setMatches(matchKdaList)
                 .build();
     }
 
-    public KDA getKdaFromLeagueOfLegendsMessage(LeagueOfLegendsPlayer data) {
+    public PlayerKDA getKdaFromLeagueOfLegendsMessage(LeagueOfLegendsPlayer data) {
 
-        int kills = 0, deaths = 0, assists = 0;
+        List<MatchKDA> matchKdaList = new ArrayList<>();
         val participants = data.getMatches().stream()
                 .flatMap(v -> v.getParticipants().stream())
                 .filter(v -> v.getPlayerUuid().equals(data.getPlayerUuid()))
                 .collect(Collectors.toList());
 
-        for (LeagueOfLegendsMatchParticipant participant : participants) {
-            kills += participant.getKills();
-            deaths += participant.getDeaths();
-            assists += participant.getAssists();
+
+        for (LeagueOfLegendsMatch match : data.getMatches()) {
+            val participant = match.getParticipants().stream()
+                    .filter(v -> v.getPlayerUuid().equals(data.getPlayerUuid()))
+                    .findAny().orElse(null);
+
+            if (participant == null) continue;
+
+            matchKdaList.add(MatchKDA.newBuilder()
+                    .setMatchId(match.getMatchId().toString())
+                    .setKills(participant.getKills())
+                    .setDeaths(participant.getDeaths())
+                    .setAssists(participant.getAssists())
+                    .build());
         }
 
-        return KDA.newBuilder()
+        return PlayerKDA.newBuilder()
                 .setPlayerId(data.getPlayerUuid())
-                .setKills(kills)
-                .setDeaths(deaths)
-                .setAssists(assists)
+                .setMatches(matchKdaList)
                 .build();
     }
 }

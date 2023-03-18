@@ -1,8 +1,9 @@
 package at.technikum.kafka;
 
 import at.technikum.commons.schema.dota.Dota2Player;
+import at.technikum.commons.schema.kda.GlobalKDA;
+import at.technikum.commons.schema.kda.PlayerKDA;
 import at.technikum.commons.schema.league.LeagueOfLegendsPlayer;
-import at.technikum.commons.schema.unified.KDA;
 import at.technikum.commons.schema.unified.UnifiedPlayer;
 import io.confluent.kafka.streams.serdes.avro.SpecificAvroSerde;
 import org.apache.kafka.common.serialization.Serde;
@@ -60,8 +61,15 @@ public class KafkaHelper {
         return serde;
     }
 
-    public static Serde<KDA> kdaValueSerde() {
-        Serde<KDA> serde = new SpecificAvroSerde<>();
+    public static Serde<PlayerKDA> playerKdaValueSerde() {
+        Serde<PlayerKDA> serde = new SpecificAvroSerde<>();
+        serde.configure(KafkaHelper.valueProperties(), false);
+
+        return serde;
+    }
+
+    public static Serde<GlobalKDA> globalKdaValueSerde() {
+        Serde<GlobalKDA> serde = new SpecificAvroSerde<>();
         serde.configure(KafkaHelper.valueProperties(), false);
 
         return serde;

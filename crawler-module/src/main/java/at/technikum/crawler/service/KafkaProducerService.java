@@ -2,8 +2,8 @@ package at.technikum.crawler.service;
 
 import at.technikum.commons.Constants;
 import at.technikum.commons.schema.dota.Dota2Player;
+import at.technikum.commons.schema.kda.PlayerKDA;
 import at.technikum.commons.schema.league.LeagueOfLegendsPlayer;
-import at.technikum.commons.schema.unified.KDA;
 import at.technikum.crawler.util.KdaHelper;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -19,7 +19,7 @@ public class KafkaProducerService {
 
     private KafkaTemplate<String, LeagueOfLegendsPlayer> leagueOfLegendsKafkaTemplate;
 
-    private KafkaTemplate<String, KDA> kdaKafkaTemplate;
+    private KafkaTemplate<String, PlayerKDA> kdaKafkaTemplate;
 
     public void sendDota2Message(Dota2Player data) {
         log.info("Sending Dota2 Kafka data = {}", data);
@@ -35,7 +35,7 @@ public class KafkaProducerService {
         sendKdaMessage(KdaHelper.getKdaFromLeagueOfLegendsMessage(data));
     }
 
-    public void sendKdaMessage(KDA data) {
+    public void sendKdaMessage(PlayerKDA data) {
         log.info("Sending KDA Kafka data = {}", data);
         kdaKafkaTemplate.send(Constants.TOPIC_NAME_KDA_RAW, data.getPlayerId().toString(), data);
     }

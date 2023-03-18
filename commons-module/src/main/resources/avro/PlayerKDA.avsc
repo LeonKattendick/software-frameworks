@@ -1,0 +1,40 @@
+{
+  "type": "record",
+  "name": "PlayerKDA",
+  "namespace": "at.technikum.commons.schema.kda",
+  "fields": [
+    {
+      "name": "playerId",
+      "type": "string"
+    },
+    {
+      "name": "matches",
+      "type": {
+        "type": "array",
+        "items": {
+          "type": "record",
+          "name": "MatchKDA",
+          "namespace": "at.technikum.commons.schema.kda",
+          "fields": [
+            {
+              "name": "matchId",
+              "type": "string"
+            },
+            {
+              "name": "kills",
+              "type": "int"
+            },
+            {
+              "name": "deaths",
+              "type": "int"
+            },
+            {
+              "name": "assists",
+              "type": "int"
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

@@ -1,12 +1,8 @@
 {
   "type": "record",
-  "name": "KDA",
-  "namespace": "at.technikum.commons.schema.unified",
+  "name": "GlobalKDA",
+  "namespace": "at.technikum.commons.schema.kda",
   "fields": [
-    {
-      "name": "playerId",
-      "type": "string"
-    },
     {
       "name": "kills",
       "type": "int"

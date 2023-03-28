@@ -26,7 +26,7 @@ public class PlayerEntity {
 
     private double globalKda;
 
-    @OneToMany(mappedBy = "player")
+    @OneToMany(mappedBy = "player", fetch = FetchType.EAGER)
     private List<MatchEntity> matches;
 
 }

@@ -1,5 +1,6 @@
 package at.technikum.backend.persistence.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -32,6 +33,7 @@ public class MatchEntity {
 
     @ManyToOne
     @JoinColumn(name = "playerId")
+    @JsonIgnore
     private PlayerEntity player;
 
 }

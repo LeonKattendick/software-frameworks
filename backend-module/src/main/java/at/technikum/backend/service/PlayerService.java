@@ -3,6 +3,7 @@ package at.technikum.backend.service;
 import at.technikum.backend.persistence.model.PlayerEntity;
 import at.technikum.backend.persistence.repository.PlayerRepository;
 import at.technikum.commons.schema.kda.GlobalKDA;
+import at.technikum.commons.schema.unified.GameType;
 import at.technikum.commons.schema.unified.UnifiedPlayer;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -12,6 +13,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -28,6 +31,18 @@ public class PlayerService {
      * In the event a Kafka event for GlobalKDA reaches the application before the user registration, it will be cached here.
      */
     private final HashMap<String, GlobalKDA> cachedKda = new HashMap<>();
+
+    public Optional<PlayerEntity> getPlayerById(String id) {
+        return playerRepository.findById(id);
+    }
+
+    public List<PlayerEntity> getAllPlayers() {
+        return playerRepository.findAll();
+    }
+
+    public List<PlayerEntity> getAllPlayersByGameType(GameType type) {
+        return playerRepository.findAllByGameType(type);
+    }
 
     public PlayerEntity saveUnifiedPlayer(UnifiedPlayer unifiedPlayer) {
 

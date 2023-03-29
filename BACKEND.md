@@ -6,10 +6,11 @@
 
 Wir nutzen das SpringBoot Framework für unsere Backend Applikation, welche in Controller, Models, Repositories und
 Services unterteilt ist.  
-SpringBoot bietet für dieses Projekt eine Menge Funktionalitäten/Unterstützung *"out-of-the-Box"* und macht die
-Entwicklung somit schneller, flexibler
-und einfacher.
+SpringBoot bietet für dieses Projekt eine Menge Funktionalitäten/Unterstützung *"out-of-the-box"* und macht die
+Entwicklung somit schneller, flexibler und einfacher.
+Außerdem ermöglicht das Framework über das Hinzufügen von Spring-Kafka Dependencies leicht den Verbindungsaufbau und die Abfrage der Daten in Kafka.
 
+Genutzte Vorteile:
 - OR-Mapper (Hibernate)
 - HTTP Server / HTTP Funktionalitäten
 - DB Anbindung

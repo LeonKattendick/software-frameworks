@@ -23,7 +23,7 @@ public class TestController {
 
     private KafkaProducerService kafkaProducerService;
 
-    @GetMapping("/dota")
+    @GetMapping("/dotaTest")
     public ResponseEntity<String> sendDotaTest() {
 
         Dota2Match match = Dota2Match.newBuilder()
@@ -46,7 +46,7 @@ public class TestController {
         return ResponseEntity.ok("Send Dota data");
     }
 
-    @GetMapping("/league")
+    @GetMapping("/leagueTest")
     public ResponseEntity<String> sendLeagueTest() {
 
         LeagueOfLegendsMatchParticipant participant = LeagueOfLegendsMatchParticipant.newBuilder()

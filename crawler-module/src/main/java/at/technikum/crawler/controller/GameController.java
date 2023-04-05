@@ -1,6 +1,6 @@
 package at.technikum.crawler.controller;
 
-import at.technikum.crawler.service.Dota2Service;
+import at.technikum.crawler.service.GameService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -14,17 +14,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/game")
 public class GameController {
 
-    private Dota2Service dota2Service;
+    private GameService gameService;
 
-    @GetMapping("/dota")
-    public ResponseEntity<String> getDotaData() {
-        dota2Service.getDota2Data();
-        return ResponseEntity.ok("Received Dota Data");
-    }
-
-    @GetMapping("/league")
-    public ResponseEntity<String> getLeagueData() {
-        // dota2Service.getLeagueOfLegendsData();
-        return ResponseEntity.ok("Received League Data");
+    @GetMapping("")
+    public ResponseEntity<String> sendGameData() {
+        gameService.sendGameData();
+        return ResponseEntity.ok("Sent GameData");
     }
 }

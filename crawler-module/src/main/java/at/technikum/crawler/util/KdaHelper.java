@@ -11,7 +11,6 @@ import lombok.val;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @UtilityClass
 public class KdaHelper {
@@ -38,11 +37,6 @@ public class KdaHelper {
     public PlayerKDA getKdaFromLeagueOfLegendsMessage(LeagueOfLegendsPlayer data) {
 
         List<MatchKDA> matchKdaList = new ArrayList<>();
-        val participants = data.getMatches().stream()
-                .flatMap(v -> v.getParticipants().stream())
-                .filter(v -> v.getPlayerUuid().equals(data.getPlayerUuid()))
-                .collect(Collectors.toList());
-
 
         for (LeagueOfLegendsMatch match : data.getMatches()) {
             val participant = match.getParticipants().stream()

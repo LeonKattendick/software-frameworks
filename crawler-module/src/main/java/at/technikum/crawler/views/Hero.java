@@ -16,4 +16,5 @@ public class Hero {
 
     @JsonProperty("localized_name")
     private String name;
+
 }

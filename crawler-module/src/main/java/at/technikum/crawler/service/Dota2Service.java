@@ -58,34 +58,34 @@ public class Dota2Service {
         return responseEntity.getBody();
     }
 
-    private Dota2Player createDotaPlayer(Player player, Match[] matches){
+    private Dota2Player createDotaPlayer(Player player, Match[] matches) {
 
         ArrayList<Dota2Match> dotaMatches = new ArrayList<>();
-        for (Match match : matches){
+        for (Match match : matches) {
 
             dotaMatches.add(
-             Dota2Match.newBuilder()
-                    .setMatchId(match.getMatchId())
-                    .setKills(match.getKills())
-                    .setDeaths(match.getDeaths())
-                    .setAssists(match.getAssists())
-                    .setHeroName(matchHeroWithId(match.getHeroId(), heroes))
-                    .setRadiantWin(match.isRadiantWin())
-                    .build()
-             );
+                    Dota2Match.newBuilder()
+                            .setMatchId(match.getMatchId())
+                            .setKills(match.getKills())
+                            .setDeaths(match.getDeaths())
+                            .setAssists(match.getAssists())
+                            .setHeroName(matchHeroWithId(match.getHeroId(), heroes))
+                            .setRadiantWin(match.isRadiantWin())
+                            .build()
+            );
         }
 
-       return Dota2Player.newBuilder()
+        return Dota2Player.newBuilder()
                 .setAccountId(player.getProfile().getAccountId())
                 .setName(player.getProfile().getName())
                 .setMatches(dotaMatches)
                 .build();
     }
 
-    private String matchHeroWithId (int heroId, Hero[] heroes){
+    private String matchHeroWithId(int heroId, Hero[] heroes) {
 
-        for (Hero hero : heroes){
-            if (hero.getId() == heroId){
+        for (Hero hero : heroes) {
+            if (hero.getId() == heroId) {
                 return hero.getName();
             }
         }

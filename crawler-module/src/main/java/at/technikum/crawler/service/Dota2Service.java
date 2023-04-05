@@ -26,7 +26,6 @@ public class Dota2Service {
 
     private Hero[] heroes;
     private ArrayList<Dota2Player> dota2Players;
-    private KafkaProducerService kafkaProducerService;
 
     @EventListener(ApplicationReadyEvent.class)
     public void initialiseDotaHeroes() {
@@ -41,12 +40,11 @@ public class Dota2Service {
 
             log.info("Receiving Dota2Player = {}", player);
             Match[] matches = getResponseEntityBody(("https://api.opendota.com/api/players/" + player.getProfile().getAccountId()
-                    + "/matches?limit=1"), Match[].class);
+                    + "/matches?limit=10"), Match[].class);
 
             log.info("Receiving Dota2Player matches = {}", Arrays.toString(matches));
 
             dota2Players.add(createDotaPlayer(player, matches));
-            kafkaProducerService.sendDota2Message(createDotaPlayer(player, matches));
         }
 
         return dota2Players;

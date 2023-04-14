@@ -1,6 +1,6 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="FRONTEND_DEV" type="js.build_tools.npm">
-    <package-json value="$PROJECT_DIR$/react-frontend/package.json" />
+    <package-json value="$PROJECT_DIR$/frontend-module/package.json" />
     <command value="run" />
     <scripts>
       <script value="dev" />

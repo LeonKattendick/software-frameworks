@@ -1,6 +1,7 @@
 package at.technikum.backend.persistence.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -19,6 +20,7 @@ import javax.persistence.ManyToOne;
 public class MatchEntity {
 
     @Id
+    @JsonProperty("match_id")
     private String matchId;
 
     private int kills;
@@ -27,6 +29,7 @@ public class MatchEntity {
 
     private int assists;
 
+    @JsonProperty("champion_name")
     private String championName;
 
     private boolean win;

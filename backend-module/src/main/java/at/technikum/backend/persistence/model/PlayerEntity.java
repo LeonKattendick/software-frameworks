@@ -1,6 +1,7 @@
 package at.technikum.backend.persistence.model;
 
 import at.technikum.commons.schema.unified.GameType;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -17,13 +18,16 @@ import java.util.List;
 public class PlayerEntity {
 
     @Id
+    @JsonProperty("player_id")
     private String playerId;
 
     private String name;
 
     @Enumerated(EnumType.STRING)
+    @JsonProperty("game_type")
     private GameType gameType;
 
+    @JsonProperty("global_kda")
     private double globalKda;
 
     @OneToMany(mappedBy = "player", fetch = FetchType.EAGER)

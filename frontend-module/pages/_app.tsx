@@ -3,6 +3,7 @@ import 'antd/dist/reset.css';
 import type { AppProps } from 'next/app';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
+import '../styles/antd.min.css';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -15,7 +16,7 @@ export default function App({ Component, pageProps }: AppProps) {
     <QueryClientProvider client={queryClient}>
       <ConfigProvider theme={{ algorithm: theme.darkAlgorithm }}>
         <Component {...pageProps} />
-      </ConfigProvider>{' '}
+      </ConfigProvider>
       {process.env.NODE_ENV === 'development' && <ReactQueryDevtools initialIsOpen={false} />}
     </QueryClientProvider>
   );

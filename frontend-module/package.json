@@ -5,11 +5,14 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "gen": "node ./genCss.mjs"
   },
   "dependencies": {
     "@ant-design/icons": "^5.0.1",
-    "@types/node": "18.15.11",
+    "@ant-design/static-style-extract": "^1.0.1",
+    "@types/antd": "^1.0.0",
+    "@types/node": "^18.15.11",
     "@types/react": "18.0.35",
     "@types/react-dom": "18.0.11",
     "antd": "^5.4.2",

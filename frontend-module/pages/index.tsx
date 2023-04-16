@@ -1,11 +1,8 @@
-import {getAllPlayers} from '@/util/services/playerApiService';
-import {Button} from 'antd';
-import {useEffect} from 'react';
+import { useGetAllPlayers } from '@/util/hooks/useGetAllPlayers';
+import { Button } from 'antd';
 
 const Home = () => {
-  useEffect(() => {
-    getAllPlayers().then(console.log);
-  }, []);
+  const { players } = useGetAllPlayers();
 
   return (
     <>

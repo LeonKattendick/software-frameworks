@@ -1,7 +1,7 @@
 import axios from 'axios';
-import {GameType} from '../GameType';
-import {getBaseUrl} from '../baseUrl';
-import {Player} from '../interfaces/Player';
+import { GameType } from '../GameType';
+import { getBaseUrl } from '../baseUrl';
+import { Player } from '../interfaces/Player';
 
 export const getAllPlayers = (): Promise<Player[]> => {
   return new Promise((resolve, reject) =>
@@ -12,7 +12,7 @@ export const getAllPlayers = (): Promise<Player[]> => {
   );
 };
 
-export const getPlayerById = (id: number): Promise<Player> => {
+export const getPlayerById = (id: string): Promise<Player> => {
   return new Promise((resolve, reject) =>
     axios
       .get(`${getBaseUrl()}/player/${id}`)

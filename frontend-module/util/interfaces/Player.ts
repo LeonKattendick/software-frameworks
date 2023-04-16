@@ -1,5 +1,5 @@
-import {GameType} from '../GameType';
-import {Match} from './Match';
+import { GameType } from '../GameType';
+import { Match } from './Match';
 
 export interface Player {
   player_id: string;

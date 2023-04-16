@@ -142,3 +142,17 @@ services:
       context: ./
       dockerfile: streams.dockerfile
     restart: always
+
+  frontend:
+    image: frontend-module:latest
+    hostname: frontend
+    container_name: frontend
+    profiles:
+      - production
+    build:
+      context: ./
+      dockerfile: frontend.dockerfile
+    restart: always
+    ports:
+      - "3000:3000"
+

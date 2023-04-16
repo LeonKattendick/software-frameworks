@@ -1,12 +1,11 @@
 import axios from 'axios';
 import { GameType } from '../GameType';
-import { getBaseUrl } from '../baseUrl';
 import { Player } from '../interfaces/Player';
 
 export const getAllPlayers = (): Promise<Player[]> => {
   return new Promise((resolve, reject) =>
     axios
-      .get(`${getBaseUrl()}/player`)
+      .get('http://localhost:8090/player')
       .then((r) => resolve(r.data))
       .catch((e) => reject(e))
   );
@@ -15,7 +14,7 @@ export const getAllPlayers = (): Promise<Player[]> => {
 export const getPlayerById = (id: string): Promise<Player> => {
   return new Promise((resolve, reject) =>
     axios
-      .get(`${getBaseUrl()}/player/${id}`)
+      .get(`http://localhost:8090/player/${id}`)
       .then((r) => resolve(r.data))
       .catch((e) => reject(e))
   );
@@ -24,7 +23,7 @@ export const getPlayerById = (id: string): Promise<Player> => {
 export const getPlayersByGame = (type: GameType): Promise<Player[]> => {
   return new Promise((resolve, reject) =>
     axios
-      .get(`${getBaseUrl()}/player/game/${type}`)
+      .get(`http://localhost:8090/player/game/${type}`)
       .then((r) => resolve(r.data))
       .catch((e) => reject(e))
   );

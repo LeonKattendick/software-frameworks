@@ -1,16 +1,18 @@
 import { useGetAllPlayers } from '@/util/hooks/useGetAllPlayers';
-import { Button, Layout } from 'antd';
+import { Player } from '@/util/interfaces/Player';
+import { Table } from 'antd';
+import Link from 'next/link';
 
 const Home = () => {
   const { players } = useGetAllPlayers();
 
   return (
-    <Layout style={{ height: '100vh' }}>
-      <Layout.Header style={{ backgroundColor: '#141414' }}>MOBA Tracker</Layout.Header>
-      <Layout.Content style={{ height: '100%', padding: 24 }}>
-        <Button>test</Button>
-      </Layout.Content>
-    </Layout>
+    <Table dataSource={players}>
+      <Table.Column title="ID" render={(_, record: Player) => <Link href={`/player/${record.player_id}`}>{record.player_id}</Link>} />
+      <Table.Column dataIndex="name" title="Name" />
+      <Table.Column dataIndex="game_type" title="Spiel" />
+      <Table.Column dataIndex="global_kda" title="KDA" />
+    </Table>
   );
 };
 

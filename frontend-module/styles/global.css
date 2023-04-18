@@ -1,0 +1,19 @@
+body {
+  background-color: transparent;
+}
+
+.ant-space-item {
+  width: 50%;
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: #141414;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #1d1d1d;
+}

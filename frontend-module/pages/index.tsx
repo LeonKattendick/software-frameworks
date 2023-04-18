@@ -1,18 +1,15 @@
+import { PlayerTable } from '@/components/PlayerTable';
 import { useGetAllPlayers } from '@/util/hooks/useGetAllPlayers';
-import { Player } from '@/util/interfaces/Player';
-import { Table } from 'antd';
-import Link from 'next/link';
+import { Typography } from 'antd';
 
 const Home = () => {
   const { players } = useGetAllPlayers();
 
   return (
-    <Table dataSource={players}>
-      <Table.Column title="ID" render={(_, record: Player) => <Link href={`/player/${record.player_id}`}>{record.player_id}</Link>} />
-      <Table.Column dataIndex="name" title="Name" />
-      <Table.Column dataIndex="game_type" title="Spiel" />
-      <Table.Column dataIndex="global_kda" title="KDA" />
-    </Table>
+    <>
+      <Typography.Title>Alle Spieler</Typography.Title>
+      <PlayerTable players={players} isAll={true} />
+    </>
   );
 };
 

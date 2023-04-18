@@ -50,7 +50,7 @@ public class TestController {
     public ResponseEntity<String> sendLeagueTest() {
 
         LeagueOfLegendsMatchParticipant participant = LeagueOfLegendsMatchParticipant.newBuilder()
-                .setPlayerUuid("123")
+                .setPlayerUuid("1234")
                 .setKills(100)
                 .setDeaths(200)
                 .setAssists(50)
@@ -59,12 +59,12 @@ public class TestController {
                 .build();
 
         LeagueOfLegendsMatch match = LeagueOfLegendsMatch.newBuilder()
-                .setMatchId("456")
+                .setMatchId("4567")
                 .setParticipants(Collections.singletonList(participant))
                 .build();
 
         LeagueOfLegendsPlayer player = LeagueOfLegendsPlayer.newBuilder()
-                .setPlayerUuid("123")
+                .setPlayerUuid("1234")
                 .setGameName("Test")
                 .setMatches(Collections.singletonList(match))
                 .build();

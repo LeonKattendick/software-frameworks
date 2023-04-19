@@ -10,21 +10,20 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Match {
+public class Dota2Player {
 
-    @JsonProperty("match_id")
-    private long matchId;
+    private Profile profile;
 
-    @JsonProperty("radiant_win")
-    private boolean radiantWin;
+    @AllArgsConstructor
+    @NoArgsConstructor
+    @Data
+    @JsonIgnoreProperties(ignoreUnknown = true)
+    public class Profile {
 
-    private int assists;
+        @JsonProperty("account_id")
+        private int accountId;
 
-    private int deaths;
+        private String name;
 
-    private int kills;
-
-    @JsonProperty("hero_id")
-    private int heroId;
-
+    }
 }

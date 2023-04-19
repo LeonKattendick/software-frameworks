@@ -1,12 +1,10 @@
 package at.technikum.crawler.service;
 
 import at.technikum.commons.Constants;
-import at.technikum.commons.schema.dota.Dota2Match;
-import at.technikum.commons.schema.dota.Dota2Player;
 import at.technikum.crawler.util.RestHelper;
-import at.technikum.crawler.views.Hero;
-import at.technikum.crawler.views.Match;
-import at.technikum.crawler.views.Player;
+import at.technikum.crawler.views.Dota2Hero;
+import at.technikum.crawler.views.Dota2Match;
+import at.technikum.crawler.views.Dota2Player;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
@@ -24,24 +22,24 @@ import java.util.Set;
 @Service
 public class Dota2Service {
 
-    private Set<Hero> heroes;
+    private Set<Dota2Hero> heroes;
 
-    private ArrayList<Dota2Player> dota2Players;
+    private ArrayList<at.technikum.commons.schema.dota.Dota2Player> dota2Players;
 
     @EventListener(ApplicationReadyEvent.class)
     public void initialiseDotaHeroes() {
-        heroes = new HashSet<>(Arrays.asList(RestHelper.getResponseEntityBody("https://api.opendota.com/api/heroes",  Hero[].class)));
+        heroes = new HashSet<>(Arrays.asList(RestHelper.getResponseEntityBody("https://api.opendota.com/api/heroes",  Dota2Hero[].class)));
         log.info("Loaded heroes = {}", heroes);
     }
 
-    public ArrayList<Dota2Player> getDota2Data() {
+    public ArrayList<at.technikum.commons.schema.dota.Dota2Player> getDota2Data() {
 
         for (int dotaPlayerId : Constants.DOTA_PLAYER_IDS) {
-            Player player = RestHelper.getResponseEntityBody(("https://api.opendota.com/api/players/" + dotaPlayerId), Player.class);
+            Dota2Player player = RestHelper.getResponseEntityBody(("https://api.opendota.com/api/players/" + dotaPlayerId), Dota2Player.class);
             log.info("Receiving Dota2Player = {}", player);
 
-            Match[] matches = RestHelper.getResponseEntityBody(("https://api.opendota.com/api/players/" + player.getProfile().getAccountId()
-                    + "/matches?limit=10"), Match[].class);
+            Dota2Match[] matches = RestHelper.getResponseEntityBody(("https://api.opendota.com/api/players/" + player.getProfile().getAccountId()
+                    + "/matches?limit=10"), Dota2Match[].class);
             log.info("Receiving Dota2Player matches = {}", Arrays.toString(matches));
 
             dota2Players.add(createDotaPlayer(player, matches));
@@ -50,12 +48,12 @@ public class Dota2Service {
         return dota2Players;
     }
 
-    private Dota2Player createDotaPlayer(Player player, Match[] matches) {
+    private at.technikum.commons.schema.dota.Dota2Player createDotaPlayer(Dota2Player player, Dota2Match[] matches) {
 
-        ArrayList<Dota2Match> dotaMatches = new ArrayList<>();
-        for (Match match : matches) {
+        ArrayList<at.technikum.commons.schema.dota.Dota2Match> dotaMatches = new ArrayList<>();
+        for (Dota2Match match : matches) {
             dotaMatches.add(
-                    Dota2Match.newBuilder()
+                    at.technikum.commons.schema.dota.Dota2Match.newBuilder()
                             .setMatchId(match.getMatchId())
                             .setKills(match.getKills())
                             .setDeaths(match.getDeaths())
@@ -66,7 +64,7 @@ public class Dota2Service {
             );
         }
 
-        return Dota2Player.newBuilder()
+        return at.technikum.commons.schema.dota.Dota2Player.newBuilder()
                 .setAccountId(player.getProfile().getAccountId())
                 .setName(player.getProfile().getName())
                 .setMatches(dotaMatches)
@@ -76,7 +74,7 @@ public class Dota2Service {
     private String matchHeroWithId(int heroId) {
       return heroes.stream()
               .filter(v-> v.getId() == heroId)
-              .map(Hero::getName)
+              .map(Dota2Hero::getName)
               .findFirst()
               .orElse(null);
     }

@@ -69,7 +69,7 @@ public class LeagueofLegendsService {
       return LeagueOfLegendsPlayer.newBuilder()
               .setPlayerUuid(player.getPlayerUuid())
               .setMatches(leagueOfLegendsMatches)
-              .setGameName("LOL")
+              .setGameName("LeagueOfLegends")
               .build();
     }
 
@@ -92,7 +92,6 @@ public class LeagueofLegendsService {
         }
 
         return leagueOfLegendsMatchParticipants;
-
     }
 
 }

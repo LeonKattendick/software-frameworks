@@ -1,5 +1,6 @@
 package at.technikum.crawler.service;
 
+import at.technikum.commons.schema.dota.Dota2Player;
 import at.technikum.commons.schema.league.LeagueOfLegendsPlayer;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,10 +19,10 @@ public class GameService {
 
     public void sendGameData() {
 
-        ArrayList<at.technikum.commons.schema.dota.Dota2Player> dota2Players = new ArrayList<>();
+        ArrayList<Dota2Player> dota2Players = new ArrayList<>();
         dota2Players.addAll(dota2Service.getDota2Data());
 
-        for (at.technikum.commons.schema.dota.Dota2Player dota2Player : dota2Players){
+        for (Dota2Player dota2Player : dota2Players){
             kafkaProducerService.sendDota2Message(dota2Player);
         }
 

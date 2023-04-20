@@ -10,11 +10,21 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Dota2Hero {
+public class Dota2MatchDto {
 
-    private int id;
+    @JsonProperty("match_id")
+    private long matchId;
 
-    @JsonProperty("localized_name")
-    private String name;
+    @JsonProperty("radiant_win")
+    private boolean radiantWin;
+
+    private int assists;
+
+    private int deaths;
+
+    private int kills;
+
+    @JsonProperty("hero_id")
+    private int heroId;
 
 }

@@ -5,8 +5,8 @@ import at.technikum.commons.schema.league.LeagueOfLegendsMatch;
 import at.technikum.commons.schema.league.LeagueOfLegendsMatchParticipant;
 import at.technikum.commons.schema.league.LeagueOfLegendsPlayer;
 import at.technikum.crawler.util.RestHelper;
-import at.technikum.crawler.views.LolMatch;
-import at.technikum.crawler.views.LolPlayer;
+import at.technikum.crawler.views.LolMatchDto;
+import at.technikum.crawler.views.LolPlayerDto;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -32,18 +32,18 @@ public class LeagueofLegendsService {
         HttpHeaders headers = new HttpHeaders();
         headers.set("X-Riot-Token", apiKey);
 
-        for (String lolPlayerId : Constants.LOL_PLAYER_IDS){
-            LolPlayer player = RestHelper.getResponseEntityBody(("https://europe.api.riotgames.com/riot/account/v1/accounts/by-puuid/"
-                    + lolPlayerId), LolPlayer.class, headers);
+        for (String lolPlayerId : Constants.LOL_PLAYER_IDS) {
+            LolPlayerDto player = RestHelper.getResponseEntityBody(("https://europe.api.riotgames.com/riot/account/v1/accounts/by-puuid/"
+                    + lolPlayerId), LolPlayerDto.class, headers);
             log.info("Receiving LolPlayer = {}", player);
 
             String[] matchIds = (RestHelper.getResponseEntityBody(("https://europe.api.riotgames.com/lol/match/v5/matches/by-puuid/"
                     + player.getPlayerUuid()) + "/ids", String[].class, headers));
 
-            ArrayList<LolMatch> matches = new ArrayList<>();
-            for (String matchId : matchIds){
+            ArrayList<LolMatchDto> matches = new ArrayList<>();
+            for (String matchId : matchIds) {
                 matches.add(RestHelper.getResponseEntityBody(("https://europe.api.riotgames.com/lol/match/v5/matches/"
-                        + matchId), LolMatch.class, headers));
+                        + matchId), LolMatchDto.class, headers));
             }
 
             leagueOfLegendsPlayers.add(createLeagueOfLegendsPlayer(player, matches));
@@ -52,32 +52,32 @@ public class LeagueofLegendsService {
         return leagueOfLegendsPlayers;
     }
 
-    private LeagueOfLegendsPlayer createLeagueOfLegendsPlayer(LolPlayer player, ArrayList<LolMatch> matches) {
+    private LeagueOfLegendsPlayer createLeagueOfLegendsPlayer(LolPlayerDto player, ArrayList<LolMatchDto> matches) {
 
         ArrayList<LeagueOfLegendsMatch> leagueOfLegendsMatches = new ArrayList<>();
 
-        for (LolMatch match : matches) {
+        for (LolMatchDto match : matches) {
 
             leagueOfLegendsMatches.add(
-                   LeagueOfLegendsMatch.newBuilder()
+                    LeagueOfLegendsMatch.newBuilder()
                             .setMatchId(match.getMetadata().getMatchId())
                             .setParticipants(createLeagueOfLegendsMatchParticipants(match))
                             .build()
             );
         }
 
-      return LeagueOfLegendsPlayer.newBuilder()
-              .setPlayerUuid(player.getPlayerUuid())
-              .setMatches(leagueOfLegendsMatches)
-              .setGameName("LeagueOfLegends")
-              .build();
+        return LeagueOfLegendsPlayer.newBuilder()
+                .setPlayerUuid(player.getPlayerUuid())
+                .setMatches(leagueOfLegendsMatches)
+                .setGameName(player.getGameName())
+                .build();
     }
 
-    private ArrayList<LeagueOfLegendsMatchParticipant> createLeagueOfLegendsMatchParticipants(LolMatch match) {
+    private ArrayList<LeagueOfLegendsMatchParticipant> createLeagueOfLegendsMatchParticipants(LolMatchDto match) {
 
         ArrayList<LeagueOfLegendsMatchParticipant> leagueOfLegendsMatchParticipants = new ArrayList<>();
 
-        for (LolMatch.Info.Participant participant :  match.getInfo().getParticipants()){
+        for (LolMatchDto.Info.Participant participant : match.getInfo().getParticipants()) {
 
             leagueOfLegendsMatchParticipants.add(
                     LeagueOfLegendsMatchParticipant.newBuilder()

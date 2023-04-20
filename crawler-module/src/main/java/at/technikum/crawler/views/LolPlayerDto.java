@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class LolPlayer {
+public class LolPlayerDto {
 
     @JsonProperty("puuid")
     private String playerUuid;

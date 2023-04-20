@@ -12,7 +12,7 @@ import java.util.ArrayList;
 @NoArgsConstructor
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class LolMatch {
+public class LolMatchDto {
 
     private MetaData metadata;
 

@@ -14,24 +14,25 @@ import java.util.ArrayList;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class LolMatch {
 
-    private Info info;
+    private MetaData metadata;
 
-    private MetaData metaData;
+    private Info info;
 
     @AllArgsConstructor
     @NoArgsConstructor
     @Data
     @JsonIgnoreProperties(ignoreUnknown = true)
-    public class MetaData {
+    public static class MetaData {
 
         private String matchId;
+
     }
 
     @AllArgsConstructor
     @NoArgsConstructor
     @Data
     @JsonIgnoreProperties(ignoreUnknown = true)
-    public class Info{
+    public static class Info {
 
         private ArrayList<Participant> participants = new ArrayList<>();
 
@@ -39,7 +40,7 @@ public class LolMatch {
         @NoArgsConstructor
         @Data
         @JsonIgnoreProperties(ignoreUnknown = true)
-        public class Participant{
+        public static class Participant{
 
             private String championName;
 

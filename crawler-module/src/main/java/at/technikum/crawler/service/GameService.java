@@ -18,12 +18,12 @@ public class GameService {
 
     public void sendGameData() {
 
-       /* ArrayList<Dota2Player> dota2Players = new ArrayList<>();
+        ArrayList<at.technikum.commons.schema.dota.Dota2Player> dota2Players = new ArrayList<>();
         dota2Players.addAll(dota2Service.getDota2Data());
 
-        for (Dota2Player dota2Player : dota2Players){
+        for (at.technikum.commons.schema.dota.Dota2Player dota2Player : dota2Players){
             kafkaProducerService.sendDota2Message(dota2Player);
-        } */
+        }
 
         ArrayList<LeagueOfLegendsPlayer> leagueOfLegendsPlayers = new ArrayList<>();
         leagueOfLegendsPlayers.addAll(leagueofLegendsService.getLolPlayers());

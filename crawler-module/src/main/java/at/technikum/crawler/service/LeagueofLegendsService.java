@@ -60,7 +60,7 @@ public class LeagueofLegendsService {
 
             leagueOfLegendsMatches.add(
                    LeagueOfLegendsMatch.newBuilder()
-                            .setMatchId(match.getMetaData().getMatchId())
+                            .setMatchId(match.getMetadata().getMatchId())
                             .setParticipants(createLeagueOfLegendsMatchParticipants(match))
                             .build()
             );

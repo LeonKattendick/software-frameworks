@@ -1,16 +1,17 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="CRAWLER" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+    <option name="ACTIVE_PROFILES" value="local" />
     <module name="crawler-module" />
+    <selectedOptions>
+      <option name="environmentVariables" />
+    </selectedOptions>
+    <option name="SPRING_BOOT_MAIN_CLASS" value="at.technikum.crawler.CrawlerApplication" />
     <extension name="coverage">
       <pattern>
         <option name="PATTERN" value="at.technikum.crawler.*" />
         <option name="ENABLED" value="true" />
       </pattern>
     </extension>
-    <option name="SPRING_BOOT_MAIN_CLASS" value="at.technikum.crawler.CrawlerApplication" />
-    <option name="ACTIVE_PROFILES" value="local" />
-    <option name="ALTERNATIVE_JRE_PATH" />
-    <option name="SHORTEN_COMMAND_LINE" value="NONE" />
     <method v="2">
       <option name="Make" enabled="true" />
     </method>

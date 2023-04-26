@@ -4,9 +4,9 @@ import at.technikum.commons.Constants;
 import at.technikum.commons.schema.dota.Dota2Match;
 import at.technikum.commons.schema.dota.Dota2Player;
 import at.technikum.crawler.util.RestHelper;
-import at.technikum.crawler.views.Hero;
-import at.technikum.crawler.views.Match;
-import at.technikum.crawler.views.Player;
+import at.technikum.crawler.views.Dota2HeroDto;
+import at.technikum.crawler.views.Dota2MatchDto;
+import at.technikum.crawler.views.Dota2PlayerDto;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
@@ -24,24 +24,24 @@ import java.util.Set;
 @Service
 public class Dota2Service {
 
-    private Set<Hero> heroes;
+    private Set<Dota2HeroDto> heroes;
 
     private ArrayList<Dota2Player> dota2Players;
 
     @EventListener(ApplicationReadyEvent.class)
     public void initialiseDotaHeroes() {
-        heroes = new HashSet<>(Arrays.asList(RestHelper.getResponseEntityBody("https://api.opendota.com/api/heroes",  Hero[].class)));
+        heroes = new HashSet<>(Arrays.asList(RestHelper.getResponseEntityBody("https://api.opendota.com/api/heroes",  Dota2HeroDto[].class)));
         log.info("Loaded heroes = {}", heroes);
     }
 
     public ArrayList<Dota2Player> getDota2Data() {
 
         for (int dotaPlayerId : Constants.DOTA_PLAYER_IDS) {
-            Player player = RestHelper.getResponseEntityBody(("https://api.opendota.com/api/players/" + dotaPlayerId), Player.class);
+            Dota2PlayerDto player = RestHelper.getResponseEntityBody(("https://api.opendota.com/api/players/" + dotaPlayerId), Dota2PlayerDto.class);
             log.info("Receiving Dota2Player = {}", player);
 
-            Match[] matches = RestHelper.getResponseEntityBody(("https://api.opendota.com/api/players/" + player.getProfile().getAccountId()
-                    + "/matches?limit=10"), Match[].class);
+            Dota2MatchDto[] matches = RestHelper.getResponseEntityBody(("https://api.opendota.com/api/players/" + player.getProfile().getAccountId()
+                    + "/matches?limit=10"), Dota2MatchDto[].class);
             log.info("Receiving Dota2Player matches = {}", Arrays.toString(matches));
 
             dota2Players.add(createDotaPlayer(player, matches));
@@ -50,10 +50,10 @@ public class Dota2Service {
         return dota2Players;
     }
 
-    private Dota2Player createDotaPlayer(Player player, Match[] matches) {
+    private Dota2Player createDotaPlayer(Dota2PlayerDto player, Dota2MatchDto[] matches) {
 
         ArrayList<Dota2Match> dotaMatches = new ArrayList<>();
-        for (Match match : matches) {
+        for (Dota2MatchDto match : matches) {
             dotaMatches.add(
                     Dota2Match.newBuilder()
                             .setMatchId(match.getMatchId())
@@ -76,7 +76,7 @@ public class Dota2Service {
     private String matchHeroWithId(int heroId) {
       return heroes.stream()
               .filter(v-> v.getId() == heroId)
-              .map(Hero::getName)
+              .map(Dota2HeroDto::getName)
               .findFirst()
               .orElse(null);
     }

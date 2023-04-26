@@ -1,6 +1,7 @@
 package at.technikum.crawler.service;
 
 import at.technikum.commons.schema.dota.Dota2Player;
+import at.technikum.commons.schema.league.LeagueOfLegendsPlayer;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -14,7 +15,7 @@ public class GameService {
 
     private KafkaProducerService kafkaProducerService;
     private Dota2Service dota2Service;
-    // private LeagueofLegendsService leagueofLegendsService;
+    private LeagueofLegendsService leagueofLegendsService;
 
     public void sendGameData() {
 
@@ -25,6 +26,12 @@ public class GameService {
             kafkaProducerService.sendDota2Message(dota2Player);
         }
 
-        // League API
+        ArrayList<LeagueOfLegendsPlayer> leagueOfLegendsPlayers = new ArrayList<>();
+        leagueOfLegendsPlayers.addAll(leagueofLegendsService.getLolPlayers());
+
+        for (LeagueOfLegendsPlayer leagueOfLegendsPlayer : leagueOfLegendsPlayers){
+            kafkaProducerService.sendLeagueOfLegendsMessage(leagueOfLegendsPlayer);
+        }
+
     }
 }

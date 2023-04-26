@@ -10,11 +10,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Hero {
+public class LolPlayerDto {
 
-    private int id;
+    @JsonProperty("puuid")
+    private String playerUuid;
 
-    @JsonProperty("localized_name")
-    private String name;
+    private String gameName;
 
 }

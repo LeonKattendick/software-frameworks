@@ -1,3 +1,4 @@
+import { MatchTable } from '@/components/MatchTable';
 import { useGetPlayerById } from '@/util/hooks/useGetPlayerById';
 import { Result, Typography } from 'antd';
 import { useRouter } from 'next/router';
@@ -13,6 +14,7 @@ const PlayerView = () => {
   return (
     <>
       <Typography.Title>{playerById?.name}</Typography.Title>
+      <MatchTable matches={playerById?.matches || []} />
     </>
   );
 };

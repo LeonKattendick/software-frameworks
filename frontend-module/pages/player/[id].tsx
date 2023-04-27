@@ -14,7 +14,7 @@ const PlayerView = () => {
   return (
     <>
       <Typography.Title>{playerById?.name}</Typography.Title>
-      <MatchTable matches={playerById?.matches || []} />
+      <MatchTable matches={playerById?.matches || []} isLoading={isPlayerByIdLoading} />
     </>
   );
 };

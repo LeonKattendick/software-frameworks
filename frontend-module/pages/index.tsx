@@ -3,12 +3,12 @@ import { useGetAllPlayers } from '@/util/hooks/useGetAllPlayers';
 import { Typography } from 'antd';
 
 const Home = () => {
-  const { players } = useGetAllPlayers();
+  const { players, isPlayersLoading } = useGetAllPlayers();
 
   return (
     <>
       <Typography.Title>Alle Spieler</Typography.Title>
-      <PlayerTable players={players} isAll={true} />
+      <PlayerTable players={players} isAll={true} isLoading={isPlayersLoading} />
     </>
   );
 };

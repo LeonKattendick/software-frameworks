@@ -2,9 +2,9 @@ import { CheckCircleTwoTone, CloseCircleTwoTone } from '@ant-design/icons';
 import { Table } from 'antd';
 import { Match } from '../util/interfaces/Match';
 
-export const MatchTable = ({ matches }: { matches: Match[] }) => {
+export const MatchTable = ({ matches, isLoading }: { matches: Match[]; isLoading: boolean }) => {
   return (
-    <Table dataSource={matches} size="small" bordered pagination={false} scroll={{ y: 600 }} style={{ minHeight: 600 }}>
+    <Table dataSource={matches} size="small" bordered pagination={false} scroll={{ y: 600 }} style={{ minHeight: 600 }} loading={isLoading}>
       <Table.Column title="ID" width="10%" render={(_, record: Match) => record.match_id} sorter={(a, b) => a.match_id.localeCompare(b.match_id)} />
       <Table.Column title="Kills" render={(_, record: Match) => record.kills} sorter={(a, b) => a.kills - b.kills} />
       <Table.Column title="Tode" render={(_, record: Match) => record.deaths} sorter={(a, b) => a.deaths - b.deaths} />

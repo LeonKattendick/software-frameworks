@@ -9,4 +9,4 @@ Tracker von Spielerdaten der Spiele Dota 2 und League of Legends.
 4. Öffne http://localhost:3000/ im Browser
 
 ## Aktuelle Architektur
-![](https://i.imgur.com/QowZY0U.jpg)
+![](https://i.imgur.com/HwoLvzQ.png)
